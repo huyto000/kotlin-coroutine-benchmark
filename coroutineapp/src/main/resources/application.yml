@@ -8,4 +8,8 @@ web-client:
 
 external:
   service:
-    url: https://run.mocky.io/v3/5bbfd767-54d4-4ad8-bd80-ff2105bc65e3
+    url: https://run.mocky.io/v3/a193d0d8-7da4-45f5-ab77-b82196091138
+
+
+#    datamock
+#  {"resultA":{"id":"1234"},"resultB":{"id":"1234"},"resultC":{"id":"1234"},"id":"fbf59909-315d-4deb-b8e0-6ed0e8456c5b"}

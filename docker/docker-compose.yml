@@ -12,11 +12,23 @@ services:
   mongo:
     image: mongo
     restart: "no"
-
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: "512M"
+        reservations:
+          cpus: "0.25"
+          memory: "128M"
     ports:
       - "27017:27017"
 networks:
   default:
     external:
       name: docker-network
+
+
+
+
+#      docker run -p 8080:8080 --cpus="4" --env JAVA_TOOL_OPTIONS="-Xmx64M"  huyto000/noncoroutineapp:1.0
      

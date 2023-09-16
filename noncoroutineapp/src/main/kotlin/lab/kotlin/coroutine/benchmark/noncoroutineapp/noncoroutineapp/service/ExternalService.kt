@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Component
-import org.springframework.web.client.AsyncRestTemplate
 import org.springframework.web.client.RestTemplate
 import java.util.concurrent.CompletableFuture
 
@@ -21,8 +20,6 @@ class ExternalService {
     private lateinit var restTemplate: RestTemplate
 
 //    private val webClient = WebClient.builder().build()
-
-    private lateinit var asyncRestTemplate: AsyncRestTemplate
 
     fun callA() =
             restTemplate.getForObject(externalServiceUrl, ResultA::class.java)!!

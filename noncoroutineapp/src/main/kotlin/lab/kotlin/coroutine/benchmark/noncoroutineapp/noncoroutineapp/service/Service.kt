@@ -4,7 +4,6 @@ import lab.kotlin.coroutine.benchmark.noncoroutineapp.noncoroutineapp.domain.Res
 import lab.kotlin.coroutine.benchmark.noncoroutineapp.noncoroutineapp.domain.ResultRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import org.springframework.web.client.AsyncRestTemplate
 
 @Service
 class Service {
@@ -22,9 +21,8 @@ class Service {
                 resultC = externalService.callC()
         )
 
-        resultRepository.save(result)
+        return resultRepository.save(result)
 
-        return result
     }
 
     fun executeAsync(): Result {

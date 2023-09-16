@@ -1,5 +1,6 @@
 package lab.kotlin.coroutine.benchmark.coroutineapp.coroutineapp.infra
 
+import com.mongodb.ConnectionString
 import com.mongodb.reactivestreams.client.MongoClient
 import com.mongodb.reactivestreams.client.MongoClients
 import org.springframework.context.annotation.Bean
@@ -11,9 +12,10 @@ import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRep
 @Configuration
 class MongoDBConfig : AbstractReactiveMongoConfiguration() {
 
+
     @Bean
-    fun mongoClient(): MongoClient {
-        return MongoClients.create()
+    override fun reactiveMongoClient(): MongoClient {
+        return MongoClients.create(ConnectionString("mongodb://localhost"))
     }
 
     override fun getDatabaseName(): String {

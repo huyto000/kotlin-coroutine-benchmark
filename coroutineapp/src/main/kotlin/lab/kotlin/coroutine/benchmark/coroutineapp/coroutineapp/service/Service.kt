@@ -54,9 +54,9 @@ class Service {
     }
 
     fun executeAsyncWithReactor(): Mono<Result> {
-        val callA = externalService.callAWithReactor().subscribeOn(Schedulers.elastic())
-        val callB = externalService.callBWithReactor().subscribeOn(Schedulers.elastic())
-        val callC = externalService.callCWithReactor().subscribeOn(Schedulers.elastic())
+        val callA = externalService.callAWithReactor().subscribeOn(Schedulers.boundedElastic())
+        val callB = externalService.callBWithReactor().subscribeOn(Schedulers.boundedElastic())
+        val callC = externalService.callCWithReactor().subscribeOn(Schedulers.boundedElastic())
 
         return Mono.zip(listOf(callA, callB, callC)) {
             Result(

@@ -1,35 +1,25 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-class Versions() {
-	companion object {
-		const val kotlin = "1.3.72"
-		const val coroutines = "1.3.7"
-	}
-}
 
 plugins {
-	application
-	id("org.springframework.boot") version "2.3.0.RELEASE"
-	id("io.spring.dependency-management") version "1.0.9.RELEASE"
-	id("org.jetbrains.kotlin.plugin.noarg") version "1.3.72"
-	kotlin("jvm") version "1.3.72"
-	kotlin("plugin.spring") version "1.3.72"
+	id("org.springframework.boot") version "3.1.3"
+	id("io.spring.dependency-management") version "1.1.3"
+	kotlin("jvm") version "1.8.22"
+	kotlin("plugin.spring") version "1.8.22"
 }
 
-apply(plugin = "org.jetbrains.kotlin.plugin.noarg")
 
 group = "lab.kotlin.coroutine.benchmark.coroutineapp"
-version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_11
+version = "0.0.2-SNAPSHOT"
+java{
+	sourceCompatibility = JavaVersion.VERSION_17
+}
 
 
 repositories {
 	mavenCentral()
 }
 
-application {
-	mainClass.set("lab.kotlin.coroutine.benchmark.coroutineapp.coroutineapp.CoroutineappApplicationKt")
-}
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
@@ -39,8 +29,8 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
-	implementation(group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version = Versions.coroutines)
-	implementation(group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-reactor", version = Versions.coroutines)
+	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.7.3")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
@@ -58,7 +48,13 @@ tasks.withType<Test> {
 
 tasks.withType<KotlinCompile> {
 	kotlinOptions {
-		freeCompilerArgs = listOf("-Xjsr305=strict")
-		jvmTarget = "11"
+		freeCompilerArgs +="-Xjsr305=strict"
+		jvmTarget = "17"
 	}
+}
+
+tasks.named<org.springframework.boot.gradle.tasks.bundling.BootBuildImage>("bootBuildImage") {
+	builder.set("paketobuildpacks/builder:base")
+	runImage.set("paketobuildpacks/run:base-cnb")
+	imageName.set("huyto000/${project.name}:1.0")
 }
